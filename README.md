@@ -29,6 +29,22 @@ A student registration website whose form is validated entirely in the browser u
 | Logic | Vanilla JavaScript (DOM API, regular expressions, FormData) |
 | Tools | VS Code, Google Chrome DevTools |
 
+## Architecture
+
+```mermaid
+flowchart LR
+    U[User input] --> F[index.html<br/>registration form]
+    F -->|input / blur / submit events| V[js/validation.js]
+    V --> R{regex patterns<br/>name · email · phone ·<br/>city · PIN · password}
+    V --> G[validateGender · validateTerms]
+    R & G -->|invalid| E[showError<br/>inline message + red state]
+    R & G -->|valid| OK[showSuccess<br/>green state]
+    OK -->|all fields valid| SUB[Success message]
+    F --- CSS[css/style.css]
+```
+
+All validation runs **client-side** in vanilla JavaScript. Each field has its own validator, which shows feedback inline as the user types. The form only submits once every validator passes.
+
 ## Folder Structure
 
 ```
